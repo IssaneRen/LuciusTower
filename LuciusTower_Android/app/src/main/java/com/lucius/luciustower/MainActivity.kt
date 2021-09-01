@@ -1,4 +1,4 @@
-apackage com.lucius.luciustower
+package com.lucius.luciustower
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
