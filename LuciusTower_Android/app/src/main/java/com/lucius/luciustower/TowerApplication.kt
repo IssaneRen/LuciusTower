@@ -2,6 +2,7 @@ package com.lucius.luciustower
 
 import android.app.Application
 import com.intsig.commonbase.AppLifecycleUtil
+import com.intsig.roomdb.util.LuciusTowerDatabaseUtil
 
 /**
  * @author Lucius Ren
@@ -26,5 +27,8 @@ class TowerApplication : Application() {
                 return mDeviceId
             }
         })
+
+        // 2. 初始化数据库
+        LuciusTowerDatabaseUtil.initDatabase(this)
     }
 }

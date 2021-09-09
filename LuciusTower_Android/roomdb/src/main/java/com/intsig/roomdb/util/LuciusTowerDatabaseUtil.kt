@@ -1,8 +1,8 @@
 package com.intsig.roomdb.util
 
+import android.content.Context
 import androidx.room.Room
-import com.intsig.commonbase.AppLifecycleUtil
-import com.intsig.roomdb.LuciusTowerRoomDatabase
+import com.intsig.roomdb.PersonDatabase
 
 /**
  * @author Lucius Ren
@@ -11,15 +11,13 @@ import com.intsig.roomdb.LuciusTowerRoomDatabase
  * 使用单例模式访问数据库的util
  */
 object LuciusTowerDatabaseUtil {
-    private const val DATABASE_NAME_LUCIUS_TOWER = "lucius-tower"
+    const val DATABASE_NAME_LUCIUS_TOWER = "lucius-tower"
 
-    var db: LuciusTowerRoomDatabase? = null
+    var db: PersonDatabase? = null
 
-    init {
-        AppLifecycleUtil.sContext?.let {
-            db = Room.databaseBuilder(
-                it, LuciusTowerRoomDatabase::class.java, DATABASE_NAME_LUCIUS_TOWER
-            ).build()
-        }
+    fun initDatabase(context: Context) {
+        db = Room.databaseBuilder(
+            context, PersonDatabase::class.java, DATABASE_NAME_LUCIUS_TOWER
+        ).allowMainThreadQueries().build()
     }
 }

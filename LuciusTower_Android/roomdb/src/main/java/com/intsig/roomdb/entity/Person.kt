@@ -10,9 +10,9 @@ import androidx.room.PrimaryKey
  *
  * 数据库实体类  - person 保存每个人的基础信息
  */
-@Entity
+@Entity(tableName = "person")
 data class Person(
-    @PrimaryKey val uid: Long,
+    @PrimaryKey val uidNum: Long,
     @ColumnInfo(name = "full_name") val fullName: String?,
     @ColumnInfo(name = "first_name") val firstName: String?,
     @ColumnInfo(name = "last_name") val lastName: String?,
