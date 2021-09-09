@@ -2,8 +2,7 @@ package com.intsig.commonbase
 
 import android.annotation.SuppressLint
 import android.content.Context
-import androidx.lifecycle.DefaultLifecycleObserver
-import org.jetbrains.annotations.NotNull
+import android.util.Log
 
 /**
  * @author Lucius Ren
@@ -12,7 +11,7 @@ import org.jetbrains.annotations.NotNull
  * 应用生命周期相关的util类
  */
 @SuppressLint("StaticFieldLeak")
-object AppLifecycleUtil : DefaultLifecycleObserver {
+object AppLifecycleUtil {
     private const val TAG = "AppLifecycleUtil"
 
     /**
@@ -29,10 +28,20 @@ object AppLifecycleUtil : DefaultLifecycleObserver {
          */
     }
 
+    private var mAppCallback: IAppCallback? = null
+
     /**
      * AppContext上下文，因为每一个app启动时都会在此单例注册，所以可以通过这里访问
      */
     @JvmField
-    @NotNull
     var sContext: Context? = null
+
+    /**
+     * 注册application的方法。 如果此module含有可运行的apk 直接运行即可
+     */
+    fun registerApplication(ctx: Context, callback: IAppCallback?) {
+        Log.d(TAG, "registerApplication")
+        sContext = ctx
+        mAppCallback = callback
+    }
 }

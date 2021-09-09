@@ -42,4 +42,11 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    // 本地其他lib依赖
+    // 1. 最底层，基础通用组件
+    implementation project(':commonbase')
+
+    // 2. 底层，基本功能组件
+    implementation project(':roomdb') // room实现的数据库组件
 }
