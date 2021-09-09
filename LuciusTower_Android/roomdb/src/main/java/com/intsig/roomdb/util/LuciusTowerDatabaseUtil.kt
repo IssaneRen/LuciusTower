@@ -2,7 +2,7 @@ package com.intsig.roomdb.util
 
 import android.content.Context
 import androidx.room.Room
-import com.intsig.roomdb.PersonDatabase
+import com.intsig.roomdb.LuciusTowerDatabase
 
 /**
  * @author Lucius Ren
@@ -13,11 +13,11 @@ import com.intsig.roomdb.PersonDatabase
 object LuciusTowerDatabaseUtil {
     const val DATABASE_NAME_LUCIUS_TOWER = "lucius-tower"
 
-    var db: PersonDatabase? = null
+    var db: LuciusTowerDatabase? = null
 
     fun initDatabase(context: Context) {
         db = Room.databaseBuilder(
-            context, PersonDatabase::class.java, DATABASE_NAME_LUCIUS_TOWER
+            context, LuciusTowerDatabase::class.java, DATABASE_NAME_LUCIUS_TOWER
         ).allowMainThreadQueries().build()
     }
 }

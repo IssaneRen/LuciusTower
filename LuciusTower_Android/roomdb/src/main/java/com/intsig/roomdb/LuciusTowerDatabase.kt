@@ -11,7 +11,7 @@ import com.intsig.roomdb.entity.Person
  *
  * app使用的 数据库类
  */
-@Database(entities = arrayOf(Person::class), version = 1)
-abstract class PersonDatabase: RoomDatabase() {
+@Database(entities = [Person::class], version = 1)
+abstract class LuciusTowerDatabase: RoomDatabase() {
     abstract fun personDao(): PersonDao
 }
