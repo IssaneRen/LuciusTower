@@ -1,2 +1,3 @@
 rootProject.name = "LuciusTower"
 include ':app'
+include ':commonbase'
