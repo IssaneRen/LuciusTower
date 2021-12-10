@@ -14,21 +14,25 @@ import com.intsig.roomdb.entity.Person
  */
 @Dao
 interface PersonDao {
+    /**
+     * 获取当前数据库中的全部人员列表
+     */
     @Query("SELECT * FROM person")
     fun getAll(): List<Person?>
 
+    /**
+     * 按照 id列表查询用户
+     */
     @Query("SELECT * FROM person WHERE uidNum IN (:userIds)")
     fun loadAllByIds(userIds: LongArray): List<Person?>
 
+    /**
+     * 根据名字查询person， 模糊查询， 昵称和姓名都可以查
+     */
     @Query(
-        "SELECT * FROM person WHERE first_name LIKE :first AND last_name LIKE :last LIMIT 1"
+        "SELECT * FROM person WHERE name LIKE :name OR nick_name LIKE :name LIMIT 1"
     )
-    fun findByName(first: String, last: String): Person?
-
-    @Query(
-        "SELECT * FROM person WHERE full_name LIKE :fullName  LIMIT 1"
-    )
-    fun findByFullName(fullName: String): Person?
+    fun findByName(name: String): List<Person?>
 
     @Insert
     fun insertAll(vararg users: Person)
