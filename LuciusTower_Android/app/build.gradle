@@ -49,4 +49,7 @@ dependencies {
 
     // 2. 底层，基本功能组件
     implementation project(':roomdb') // room实现的数据库组件
+
+    // 3. 底层，基本UI控件
+    implementation project(':commonui') // room实现的数据库组件
 }

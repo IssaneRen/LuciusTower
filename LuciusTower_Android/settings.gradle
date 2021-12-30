@@ -2,3 +2,4 @@ rootProject.name = "LuciusTower"
 include ':app'
 include ':roomdb'
 include ':commonbase'
+include ':commonui'
