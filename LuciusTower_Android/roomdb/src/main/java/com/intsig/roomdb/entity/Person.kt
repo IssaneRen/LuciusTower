@@ -25,7 +25,7 @@ data class Person(
      */
     @ColumnInfo(name = "name") val name: String?,
     @ColumnInfo(name = "nick_name") val nickName: String?,
-    @ColumnInfo(name = "sex") val sex: Int?,  // 0 for unknown, 1 for male, 2 for female
+    @ColumnInfo(name = "sex", defaultValue = "0") val sex: Int,  // 0 for unknown, 1 for male, 2 for female
     /**
      * 备注
      */
