@@ -43,7 +43,4 @@ dependencies {
     // 本地其他lib依赖
     // 1. 最底层，基础通用组件
     implementation project(':commonbase')
-
-    // 2. 通用UI 引入 CymChad大佬的recyclerView https://github.com/CymChad/BaseRecyclerViewAdapterHelper
-    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.7'
 }
