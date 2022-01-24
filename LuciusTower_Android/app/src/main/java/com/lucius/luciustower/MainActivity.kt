@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        val f = PersonListFragment()
+        val f = PersonListFragment.newInstance()
         try {
             replaceFragment(R.id.fl_container, f)
         } catch (t: Throwable) {

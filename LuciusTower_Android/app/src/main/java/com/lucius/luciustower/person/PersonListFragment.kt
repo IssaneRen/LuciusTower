@@ -4,21 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.AppCompatImageView
-import androidx.appcompat.widget.AppCompatTextView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.LogUtils
-import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.intsig.roomdb.entity.Person
 import com.lucius.luciustower.R
-import java.text.SimpleDateFormat
-
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 /**
  * A simple [Fragment] subclass.
@@ -26,14 +23,13 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class PersonListFragment : Fragment() {
-    private var param1: String? = null
-    private var param2: String? = null
+
+    private val mViewModel by viewModels<PersonListViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+//            param1 = it.getString(ARG_PARAM1)
         }
     }
 
@@ -45,62 +41,49 @@ class PersonListFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_person_list, container, false)
     }
 
+    private var mTvAddOneDbRow: TextView? = null
     private var mRvPersonList: RecyclerView? = null
-    private var mPersonListAdapter: BaseQuickAdapter<Person, BaseViewHolder>? = null
-    private val mDateFormatter = SimpleDateFormat("yyyy-MM-dd")
+    private var mPersonListAdapter: PersonPagingAdapter? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        LogUtils.dTag(TAG, "onViewCreated")
         super.onViewCreated(view, savedInstanceState)
-        LogUtils.dTag("测试", "onViewCreated")
         mRvPersonList = view.findViewById(R.id.rv_person_list)
+        mTvAddOneDbRow = view.findViewById(R.id.bt_debug_add) // 测试增加一行数据库记录
         mRvPersonList?.layoutManager = LinearLayoutManager(context)
-        mPersonListAdapter =
-            object : BaseQuickAdapter<Person, BaseViewHolder>(R.layout.item_person_list) {
+        activity?.let { act ->
+            val diffUtilCallback = object : DiffUtil.ItemCallback<Person>() {
+                override fun areItemsTheSame(oldItem: Person, newItem: Person): Boolean {
+                    return oldItem.uidNum == newItem.uidNum
+                }
 
-                override fun convert(holder: BaseViewHolder, item: Person) {
-                    LogUtils.dTag("测试", "convert item=$item")
-                    holder.getView<AppCompatTextView>(R.id.atv_person_name).text = item.name
-                    item.birthDay?.let {
-                        holder.getView<AppCompatTextView>(R.id.atv_person_birthday).text =
-                            mDateFormatter.format(it)
-                    }
-                    holder.getView<AppCompatImageView>(R.id.aiv_person_sex).setImageResource(when(item.sex) {
-                        1 -> R.drawable.ic_male_symbol
-                        2 -> R.drawable.ic_female_symbol
-                        else -> R.drawable.ic_unknown_filled
-                    })
-
+                override fun areContentsTheSame(oldItem: Person, newItem: Person): Boolean {
+                    return oldItem == newItem
                 }
             }
+            mPersonListAdapter = PersonPagingAdapter(act, diffUtilCallback)
+        }
         mRvPersonList?.adapter = mPersonListAdapter
-        mPersonListAdapter?.addData(
-            // todo Lucius 删除测试代码
-            listOf(
-                Person(1, "张三", "小张", 1, null, mDateFormatter.parse("1997-05-11")),
-                Person(1, "李四", "xx", 2, null, mDateFormatter.parse("1996-01-11")),
-                Person(1, "王五", "ff", 1, null, mDateFormatter.parse("1995-12-12"))
-            )
-        )
 
+        lifecycleScope.launch {
+            LogUtils.dTag(TAG, "onViewCreated and lifecycleScope.launch")
+            mViewModel.allPeople.collectLatest {
+                mPersonListAdapter?.submitData(it)
+            }
+        }
+
+        mTvAddOneDbRow?.setOnClickListener { mViewModel.addOneDebugRowInDb() }
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment PersonListFragment.
-         */
-        // TODO: Rename and change types and number of parameters
+        private const val TAG = "PersonListFragment"
+
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            PersonListFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        fun newInstance() = PersonListFragment().apply {
+//                arguments = Bundle().apply {
+//                    putString(ARG_PARAM1, param1)
+//                    putString(ARG_PARAM2, param2)
+//                }
+        }
     }
 }

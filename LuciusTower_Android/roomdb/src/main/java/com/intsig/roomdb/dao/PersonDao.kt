@@ -1,5 +1,6 @@
 package com.intsig.roomdb.dao
 
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -18,7 +19,10 @@ interface PersonDao {
      * 获取当前数据库中的全部人员列表
      */
     @Query("SELECT * FROM person")
-    fun getAll(): List<Person?>
+    fun getAll(): List<Person>
+
+    @Query("SELECT * FROM person")
+    fun getAllByPagingSource(): PagingSource<Int, Person>
 
     /**
      * 按照 id列表查询用户

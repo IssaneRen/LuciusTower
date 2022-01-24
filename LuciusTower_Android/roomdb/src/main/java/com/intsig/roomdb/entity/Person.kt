@@ -17,7 +17,7 @@ import java.util.*
 @Entity(tableName = "person")
 data class Person(
     // 区块1 --- 唯一标识
-    @PrimaryKey val uidNum: Long,
+    @PrimaryKey(autoGenerate = true) val uidNum: Long?,
 
     // 区块2 --- 基本信息
     /**

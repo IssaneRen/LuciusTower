@@ -13,7 +13,7 @@ import com.intsig.roomdb.LuciusTowerDatabase
 object LuciusTowerDatabaseUtil {
     const val DATABASE_NAME_LUCIUS_TOWER = "lucius-tower"
 
-    var db: LuciusTowerDatabase? = null
+    lateinit var db: LuciusTowerDatabase
 
     fun initDatabase(context: Context) {
         db = Room.databaseBuilder(
