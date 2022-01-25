@@ -43,4 +43,7 @@ dependencies {
     // 本地其他lib依赖
     // 1. 最底层，基础通用组件
     implementation project(':commonbase')
+
+    // 2. viewpager2
+    api "androidx.viewpager2:viewpager2:1.0.0"
 }
