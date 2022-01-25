@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.blankj.utilcode.util.LogUtils
+import com.lucius.luciustower.databinding.ActivityMainBinding
 import com.lucius.luciustower.person.PersonListFragment
 
 class MainActivity : AppCompatActivity() {
@@ -11,12 +12,12 @@ class MainActivity : AppCompatActivity() {
         private const val TAG = "MainActivity"
     }
 
+    private lateinit var mBinding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        supportActionBar?.hide()
-
+        mBinding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(mBinding.root)
         val f = PersonListFragment.newInstance()
         try {
             replaceFragment(R.id.fl_container, f)
