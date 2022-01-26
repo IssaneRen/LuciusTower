@@ -7,7 +7,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
-import com.intsig.commonui.util.setStatusBarColor
+import com.intsig.commonui.util.UiHelper
+import com.intsig.commonui.util.statusbar.setStatusBarColor
 import com.lucius.luciustower.R
 import com.lucius.luciustower.databinding.ActivityMainBinding
 import com.lucius.luciustower.databinding.ItemHomePageTabBinding
@@ -44,6 +45,13 @@ class MainActivity : AppCompatActivity() {
             blackFontColor = true,
             statusColorInt = Color.parseColor("#00000000")
         )
+    }
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        if (hasFocus) {
+            UiHelper.onFirstActivityWindowFocusChangedTrue(this)
+        }
     }
 
     private fun initView() {

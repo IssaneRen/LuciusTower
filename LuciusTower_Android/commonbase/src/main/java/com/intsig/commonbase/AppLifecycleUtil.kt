@@ -33,8 +33,7 @@ object AppLifecycleUtil {
     /**
      * AppContext上下文，因为每一个app启动时都会在此单例注册，所以可以通过这里访问
      */
-    @JvmField
-    var sContext: Context? = null
+    lateinit var sContext: Context
 
     /**
      * 注册application的方法。 如果此module含有可运行的apk 直接运行即可
