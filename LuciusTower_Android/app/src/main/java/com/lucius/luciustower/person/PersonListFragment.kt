@@ -12,8 +12,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.LogUtils
+import com.intsig.commonbase.baseclass.BaseLuciusFragment
 import com.intsig.roomdb.entity.Person
 import com.lucius.luciustower.R
+import com.lucius.luciustower.databinding.FragmentPersonListBinding
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -22,9 +24,10 @@ import kotlinx.coroutines.launch
  * Use the [PersonListFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class PersonListFragment : Fragment() {
+class PersonListFragment : BaseLuciusFragment() {
 
     private val mViewModel by viewModels<PersonListViewModel>()
+    private lateinit var mBinding: FragmentPersonListBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,13 +44,20 @@ class PersonListFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_person_list, container, false)
     }
 
+    override fun initData() {
+    }
+
+    override fun inflateFragmentView(inflater: LayoutInflater): View {
+        mBinding = FragmentPersonListBinding.inflate(inflater)
+        return mBinding.root
+    }
+
     private var mTvAddOneDbRow: TextView? = null
     private var mRvPersonList: RecyclerView? = null
     private var mPersonListAdapter: PersonPagingAdapter? = null
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        LogUtils.dTag(TAG, "onViewCreated")
-        super.onViewCreated(view, savedInstanceState)
+    override fun initView(view: View) {
+        LogUtils.dTag(TAG, "initView")
         mRvPersonList = view.findViewById(R.id.rv_person_list)
         mTvAddOneDbRow = view.findViewById(R.id.bt_debug_add) // 测试增加一行数据库记录
         mRvPersonList?.layoutManager = LinearLayoutManager(context)
@@ -71,8 +81,8 @@ class PersonListFragment : Fragment() {
                 mPersonListAdapter?.submitData(it)
             }
         }
-
         mTvAddOneDbRow?.setOnClickListener { mViewModel.addOneDebugRowInDb() }
+
     }
 
     companion object {
