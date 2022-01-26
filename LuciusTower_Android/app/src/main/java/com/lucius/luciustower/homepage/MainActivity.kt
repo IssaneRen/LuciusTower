@@ -1,11 +1,13 @@
 package com.lucius.luciustower.homepage
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
+import com.intsig.commonui.util.setStatusBarColor
 import com.lucius.luciustower.R
 import com.lucius.luciustower.databinding.ActivityMainBinding
 import com.lucius.luciustower.databinding.ItemHomePageTabBinding
@@ -37,6 +39,11 @@ class MainActivity : AppCompatActivity() {
         mBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
         initView()
+        setStatusBarColor(this,
+            fullScreen = true,
+            blackFontColor = true,
+            statusColorInt = Color.parseColor("#00000000")
+        )
     }
 
     private fun initView() {
