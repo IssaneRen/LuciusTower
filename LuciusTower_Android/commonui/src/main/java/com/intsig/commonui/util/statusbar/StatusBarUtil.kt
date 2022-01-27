@@ -161,3 +161,54 @@ private fun setStatusBarColorR(
     controller?.isAppearanceLightStatusBars = blackFontColor
     window.statusBarColor = statusColorInt
 }
+
+
+/**
+ * @param keepNavigation Navigation true表示保留导航栏（一般指底部导航）， false表示隐藏导航栏
+ */
+fun hideSystemUI(window: Window?, keepNavigation: Boolean) {
+    if (window == null) {
+        return
+    }
+    // Enables regular immersive mode.
+    // For "lean back" mode, remove SYSTEM_UI_FLAG_IMMERSIVE.
+    // Or for "sticky immersive," replace it with SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+    if (keepNavigation) {
+        window.decorView.systemUiVisibility =
+            (View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY // Set the content to appear under the system bars so that the
+                    // content doesn't resize when the system bars hide and show.
+                    or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN // Hide the status bar
+                    or View.SYSTEM_UI_FLAG_FULLSCREEN)
+    } else {
+        window.decorView.systemUiVisibility =
+            (View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY // Set the content to appear under the system bars so that the
+                    // content doesn't resize when the system bars hide and show.
+                    or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN // Hide the nav bar and status bar
+                    or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                    or View.SYSTEM_UI_FLAG_FULLSCREEN)
+    }
+    //适配水滴屏
+    showInNotch(window)
+}
+
+/**
+ * 设置内容延伸到屏幕缺口
+ *
+ * LAYOUT_IN_DISPLAY_CUTOUT_MODE_DEFAULT：默认情况下，全屏窗口不会使用到刘海区域，非全屏窗口可正常使用刘海区域
+ * LAYOUT_IN_DISPLAY_CUTOUT_MODE_NEVER：窗口不允许和刘海屏重叠
+ * LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES：内容可以延伸到刘海区域
+ */
+fun showInNotch(window: Window?) {
+    window?.let {
+        // 延伸显示区域到刘海, 暂时只适配Android P
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            val lp = it.attributes
+            lp.layoutInDisplayCutoutMode =
+                WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
+            it.attributes = lp
+        }
+    }
+}

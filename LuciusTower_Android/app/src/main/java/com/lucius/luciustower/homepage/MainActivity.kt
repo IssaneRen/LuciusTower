@@ -56,7 +56,6 @@ class MainActivity : BaseLuciusActivity() {
             binding.aivIcon.setImageResource(arrayForIconId[position])
             tab.customView = binding.root
         }.attach()
-        mBinding.tabBottom.selectTab(mBinding.tabBottom.getTabAt(2))
 
         setStatusBarColor(this,
             fullScreen = true,
