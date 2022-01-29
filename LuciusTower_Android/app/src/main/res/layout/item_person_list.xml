@@ -11,7 +11,7 @@
         android:id="@+id/atv_person_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#212121"
+        android:textColor="@color/lucius_common_text_color_1"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/aiv_person_sex"

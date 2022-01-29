@@ -7,17 +7,12 @@
     android:orientation="vertical"
     tools:context=".person.PersonListFragment">
 
-    <include
-        android:id="@+id/tool_bar"
-        layout="@layout/include_common_tool_bar"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_person_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constrainedHeight="true"
-        app:layout_constraintTop_toBottomOf="@+id/tool_bar"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/bt_debug_add" />
 
     <TextView
@@ -27,7 +22,7 @@
         android:padding="15dp"
         android:gravity="center"
         android:background="#CCCCCC"
-        android:textColor="#212121"
+        android:textColor="@color/lucius_common_text_color_1"
         app:layout_constraintBottom_toBottomOf="parent"
         android:text="测试添加一个DB数据" />
 

@@ -24,7 +24,7 @@
         android:paddingStart="70dp"
         android:paddingEnd="70dp"
         android:textSize="16sp"
-        android:textColor="#212121"
+        android:textColor="@color/lucius_common_text_color_1"
         android:textStyle="bold"
         android:text="引导"
         app:layout_constraintStart_toStartOf="parent"

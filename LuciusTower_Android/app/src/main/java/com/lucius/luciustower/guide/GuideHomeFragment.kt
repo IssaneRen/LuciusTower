@@ -14,6 +14,14 @@ import com.lucius.luciustower.databinding.FragmentGuideHomeBinding
 class GuideHomeFragment: BaseLuciusFragment() {
     companion object {
         private const val TAG = "GuideHomeFragment"
+
+        @JvmStatic
+        fun newInstance() = GuideHomeFragment().apply {
+//                arguments = Bundle().apply {
+//                    putString(ARG_PARAM1, param1)
+//                    putString(ARG_PARAM2, param2)
+//                }
+        }
     }
 
     private lateinit var mBinding: FragmentGuideHomeBinding
@@ -27,6 +35,5 @@ class GuideHomeFragment: BaseLuciusFragment() {
     }
 
     override fun initView(view: View) {
-        mBinding
     }
 }

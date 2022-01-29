@@ -44,7 +44,6 @@ class PersonListFragment : BaseLuciusFragment() {
 
     override fun initView(view: View) {
         LogUtils.dTag(TAG, "initView")
-        mBinding.toolBar.tvToolbarTitle.text = "人物"
         mBinding.rvPersonList.layoutManager = LinearLayoutManager(context)
         activity?.let { act ->
             val diffUtilCallback = object : DiffUtil.ItemCallback<Person>() {

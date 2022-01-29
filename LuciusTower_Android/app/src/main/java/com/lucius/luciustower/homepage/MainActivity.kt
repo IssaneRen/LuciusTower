@@ -11,6 +11,7 @@ import com.intsig.commonui.util.statusbar.setStatusBarColor
 import com.lucius.luciustower.R
 import com.lucius.luciustower.databinding.ActivityMainBinding
 import com.lucius.luciustower.databinding.ItemHomePageTabBinding
+import com.lucius.luciustower.guide.GuideHomeFragment
 import com.lucius.luciustower.person.PersonListFragment
 
 class MainActivity : BaseLuciusActivity() {
@@ -50,8 +51,7 @@ class MainActivity : BaseLuciusActivity() {
         setContentView(mBinding.root)
         val adapter = MainPageAdapter(this)
         mBinding.vpMainPage.adapter = adapter
-        mBinding.vpMainPage.isUserInputEnabled = false
-        TabLayoutMediator(mBinding.tabBottom, mBinding.vpMainPage) { tab, position->
+        TabLayoutMediator(mBinding.tabBottom, mBinding.vpMainPage, true, false) { tab, position->
             val binding = ItemHomePageTabBinding.inflate(layoutInflater)
             binding.mainBottomTabText.text = arrayForTabName[position]
             binding.aivIcon.setImageResource(arrayForIconId[position])
@@ -66,10 +66,19 @@ class MainActivity : BaseLuciusActivity() {
     }
 
     class MainPageAdapter(activity: FragmentActivity): FragmentStateAdapter(activity) {
-        override fun getItemCount(): Int = 4
+        private val mFragmentList = arrayListOf<Fragment>()
+
+        init {
+            mFragmentList.add(PersonListFragment.newInstance())
+            mFragmentList.add(GuideHomeFragment.newInstance())
+            mFragmentList.add(GuideHomeFragment.newInstance())
+            mFragmentList.add(GuideHomeFragment.newInstance())
+        }
+
+        override fun getItemCount(): Int = mFragmentList.size
 
         override fun createFragment(position: Int): Fragment {
-            return PersonListFragment.newInstance()
+            return mFragmentList[position]
         }
     }
 }
