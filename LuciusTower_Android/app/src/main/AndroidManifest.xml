@@ -6,16 +6,20 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:name=".TowerApplication"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.LuciusTower">
-        <activity android:name=".MainActivity">
+        android:theme="@style/Theme.LuciusTowerBase">
+        <activity android:name=".splash.LuciusTowerSplashActivity"
+            android:theme="@style/Theme.LuciusTowerSplash"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".homepage.MainActivity" />
     </application>
 
 </manifest>

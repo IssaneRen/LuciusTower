@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dimen_height_tool_bar"
+    android:background="@color/lucius_app_background"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/aiv_toolbar_back"
+        android:layout_width="@dimen/dimen_width_common_icon"
+        android:layout_height="@dimen/dimen_height_common_icon"
+        android:layout_marginStart="15dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:srcCompat="@drawable/ic_lucius_ui_back" />
+
+    <TextView
+        android:id="@+id/tv_toolbar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constrainedWidth="true"
+        android:paddingStart="70dp"
+        android:paddingEnd="70dp"
+        android:textSize="16sp"
+        android:textColor="@color/lucius_common_text_color_1"
+        android:textStyle="bold"
+        android:text="引导"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_menu_1"
+        android:layout_width="@dimen/dimen_width_common_icon"
+        android:layout_height="@dimen/dimen_height_common_icon"
+        app:srcCompat="@drawable/ic_lucius_ui_menu"
+        android:scaleType="centerCrop"
+        android:padding="5dp"
+        android:foregroundGravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="15dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="lucius_app_background">#FFF5F5F5</color>
+    <!--通用main color 正文颜色1-->
+    <color name="lucius_common_text_color_1">#FF212121</color>
+</resources>
