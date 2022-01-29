@@ -1,17 +1,22 @@
 package com.lucius.luciustower.person
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blankj.utilcode.util.LogUtils
+import com.blankj.utilcode.util.ToastUtils
 import com.intsig.commonbase.baseclass.BaseLuciusFragment
 import com.intsig.roomdb.entity.Person
+import com.lucius.luciustower.R
 import com.lucius.luciustower.databinding.FragmentPersonListBinding
+import com.lucius.luciustower.homepage.MainActivity
+import com.lucius.luciustower.homepage.MainModel
+import com.lucius.luciustower.homepage.MainViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -23,14 +28,15 @@ import kotlinx.coroutines.launch
 class PersonListFragment : BaseLuciusFragment() {
 
     private val mViewModel by viewModels<PersonListViewModel>()
-    private lateinit var mBinding: FragmentPersonListBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-//            param1 = it.getString(ARG_PARAM1)
-        }
+    /**
+     * 和activity公用viewModel
+     */
+    private val mActivityViewModel by lazy {
+        ViewModelProvider(activity as MainActivity)[MainViewModel::class.java]
     }
+
+    private lateinit var mBinding: FragmentPersonListBinding
 
     override fun initData() {
     }
@@ -66,7 +72,16 @@ class PersonListFragment : BaseLuciusFragment() {
             }
         }
         mBinding.btDebugAdd.setOnClickListener { mViewModel.addOneDebugRowInDb() }
+    }
 
+    override fun onFragmentVisible() {
+        // 更新首页标题
+        mActivityViewModel.liveDataForToolbarTitle.postValue("联系人")
+        // 更新右上角按钮icon
+        mActivityViewModel.liveDataForToolbarIconRight1.postValue(
+            MainModel.MenuIconModel(R.drawable.ic_lucius_ui_menu, View.VISIBLE) {
+                ToastUtils.showShort("联系人页菜单显示！")
+            })
     }
 
     companion object {

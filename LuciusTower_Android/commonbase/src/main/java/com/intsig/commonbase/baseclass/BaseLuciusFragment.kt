@@ -32,13 +32,18 @@ abstract class BaseLuciusFragment: BackPressHandleFragment() {
         initView(view)
     }
 
+    override fun onResume() {
+        super.onResume()
+        onFragmentVisible()
+    }
+
     /**
      * 基类方法 step1： 如若有跳转传递进来的bundle，统一在这里处理. 因为有些页面无传递数据，所以非必须重写
      */
     open fun initIntent(bundle: Bundle) {}
 
     /**
-     * 基类方法 step2: 如果有
+     * 基类方法 step2: 如果有在视图刷新前就要进行的数据更新，请写在这里
      */
     abstract fun initData()
 
@@ -51,4 +56,10 @@ abstract class BaseLuciusFragment: BackPressHandleFragment() {
      * 基类方法step4: view已经inflate完成，可以利用view初始化控件状态
      */
     abstract fun initView(view: View)
+
+    /**
+     * 基类方法step5: 每次fragment能够可见的时候会调用这个
+     */
+    abstract fun onFragmentVisible()
 }
+

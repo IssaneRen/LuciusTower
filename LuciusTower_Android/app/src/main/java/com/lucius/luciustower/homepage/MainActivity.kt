@@ -1,6 +1,8 @@
 package com.lucius.luciustower.homepage
 
 import android.graphics.Color
+import android.view.View
+import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -11,8 +13,10 @@ import com.intsig.commonui.util.statusbar.setStatusBarColor
 import com.lucius.luciustower.R
 import com.lucius.luciustower.databinding.ActivityMainBinding
 import com.lucius.luciustower.databinding.ItemHomePageTabBinding
+import com.lucius.luciustower.explore.ExploreFragment
 import com.lucius.luciustower.guide.GuideHomeFragment
 import com.lucius.luciustower.person.PersonListFragment
+import com.lucius.luciustower.settings.SettingsFragment
 
 class MainActivity : BaseLuciusActivity() {
     companion object {
@@ -33,6 +37,10 @@ class MainActivity : BaseLuciusActivity() {
         )
     }
 
+    /**
+     * 首页的viewModel
+     */
+    private val mViewModel by viewModels<MainViewModel>()
     private lateinit var mBinding: ActivityMainBinding
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
@@ -63,6 +71,21 @@ class MainActivity : BaseLuciusActivity() {
             blackFontColor = true,
             statusColorInt = Color.parseColor("#00000000")
         )
+        // 3. 注册liveData的更新
+        subscribeLiveData()
+    }
+
+    private fun subscribeLiveData() {
+        mViewModel.liveDataForToolbarTitle.observe(this) { toolbarTitle->
+            mBinding.toolBar.tvToolbarTitle.text = toolbarTitle
+        }
+        mViewModel.liveDataForToolbarIconRight1.observe(this) { iconModel->
+            mBinding.toolBar.ivMenu1.visibility = iconModel.visibility
+            if (iconModel.visibility == View.VISIBLE) { // 如果可见 才会更新后续
+                mBinding.toolBar.ivMenu1.setImageResource(iconModel.resId)
+                mBinding.toolBar.ivMenu1.setOnClickListener(iconModel.clickListener)
+            }
+        }
     }
 
     class MainPageAdapter(activity: FragmentActivity): FragmentStateAdapter(activity) {
@@ -71,8 +94,8 @@ class MainActivity : BaseLuciusActivity() {
         init {
             mFragmentList.add(PersonListFragment.newInstance())
             mFragmentList.add(GuideHomeFragment.newInstance())
-            mFragmentList.add(GuideHomeFragment.newInstance())
-            mFragmentList.add(GuideHomeFragment.newInstance())
+            mFragmentList.add(ExploreFragment.newInstance())
+            mFragmentList.add(SettingsFragment.newInstance())
         }
 
         override fun getItemCount(): Int = mFragmentList.size

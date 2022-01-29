@@ -1,4 +1,4 @@
-package com.lucius.luciustower.guide
+package com.lucius.luciustower.explore
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,31 +6,23 @@ import androidx.lifecycle.ViewModelProvider
 import com.blankj.utilcode.util.ToastUtils
 import com.intsig.commonbase.baseclass.BaseLuciusFragment
 import com.lucius.luciustower.R
-import com.lucius.luciustower.databinding.FragmentGuideHomeBinding
+import com.lucius.luciustower.databinding.FragmentExploreBinding
 import com.lucius.luciustower.homepage.MainActivity
 import com.lucius.luciustower.homepage.MainModel
 import com.lucius.luciustower.homepage.MainViewModel
 
 /**
  * @author Lucius Ren
- * @since 2022/1/27 15:17
- * 
- * guide页面的外层页 主要是用于首页切换tab的第二个页面
+ * @since 2022/1/29 17:32
+ *
+ * exploretab 首页的第三个tab 探索功能相关，是自由功能
  */
-class GuideHomeFragment: BaseLuciusFragment() {
+class ExploreFragment: BaseLuciusFragment() {
     companion object {
-        private const val TAG = "GuideHomeFragment"
+        private const val TAG = "ExploreFragment"
 
-        @JvmStatic
-        fun newInstance() = GuideHomeFragment().apply {
-//                arguments = Bundle().apply {
-//                    putString(ARG_PARAM1, param1)
-//                    putString(ARG_PARAM2, param2)
-//                }
-        }
+        fun newInstance() = ExploreFragment()
     }
-
-    private lateinit var mBinding: FragmentGuideHomeBinding
 
     /**
      * 和activity公用viewModel
@@ -39,12 +31,14 @@ class GuideHomeFragment: BaseLuciusFragment() {
         ViewModelProvider(activity as MainActivity)[MainViewModel::class.java]
     }
 
+    private lateinit var mViewBinding: FragmentExploreBinding
+
     override fun initData() {
     }
 
     override fun inflateFragmentView(inflater: LayoutInflater): View {
-        mBinding = FragmentGuideHomeBinding.inflate(inflater)
-        return mBinding.root
+        mViewBinding = FragmentExploreBinding.inflate(inflater)
+        return mViewBinding.root
     }
 
     override fun initView(view: View) {
@@ -52,11 +46,12 @@ class GuideHomeFragment: BaseLuciusFragment() {
 
     override fun onFragmentVisible() {
         // 更新首页标题
-        mActivityViewModel.liveDataForToolbarTitle.postValue("引导")
+        mActivityViewModel.liveDataForToolbarTitle.postValue("发现")
         // 更新右上角按钮icon
         mActivityViewModel.liveDataForToolbarIconRight1.postValue(
             MainModel.MenuIconModel(R.drawable.ic_lucius_ui_menu, View.VISIBLE) {
-                ToastUtils.showShort("引导页菜单显示！")
-            })
+                ToastUtils.showShort("发现页菜单！")
+            }
+        )
     }
 }
