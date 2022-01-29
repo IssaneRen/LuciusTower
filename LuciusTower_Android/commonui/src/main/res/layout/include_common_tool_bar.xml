@@ -7,8 +7,8 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/aiv_toolbar_back"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="@dimen/dimen_width_common_icon"
+        android:layout_height="@dimen/dimen_height_common_icon"
         android:layout_marginStart="15dp"
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,6 +37,9 @@
         android:layout_width="@dimen/dimen_width_common_icon"
         android:layout_height="@dimen/dimen_height_common_icon"
         app:srcCompat="@drawable/ic_lucius_ui_menu"
+        android:scaleType="centerCrop"
+        android:padding="5dp"
+        android:foregroundGravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

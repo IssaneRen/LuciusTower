@@ -2,6 +2,6 @@
 <resources>
     <dimen name="dimen_height_tool_bar">42dp</dimen>
 
-    <dimen name="dimen_width_common_icon">36dp</dimen>
-    <dimen name="dimen_height_common_icon">36dp</dimen>
+    <dimen name="dimen_width_common_icon">32dp</dimen>
+    <dimen name="dimen_height_common_icon">32dp</dimen>
 </resources>

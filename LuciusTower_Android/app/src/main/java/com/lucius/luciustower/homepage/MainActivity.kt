@@ -50,6 +50,7 @@ class MainActivity : BaseLuciusActivity() {
         setContentView(mBinding.root)
         val adapter = MainPageAdapter(this)
         mBinding.vpMainPage.adapter = adapter
+        mBinding.vpMainPage.isUserInputEnabled = false
         TabLayoutMediator(mBinding.tabBottom, mBinding.vpMainPage) { tab, position->
             val binding = ItemHomePageTabBinding.inflate(layoutInflater)
             binding.mainBottomTabText.text = arrayForTabName[position]
