@@ -34,6 +34,10 @@ data class Person(
      * 出生日期
      */
     @ColumnInfo(name = "birth_date") val birthDay: Date?,
+    /**
+     * 头像数据
+     */
+    @ColumnInfo(name = "avatar") val avatarImgPath: String?,
 
     // 区块3 --- 标签（待定）
     // 区块4 ---

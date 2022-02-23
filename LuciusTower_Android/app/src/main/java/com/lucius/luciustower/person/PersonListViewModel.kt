@@ -42,7 +42,7 @@ class PersonListViewModel(app: Application): AndroidViewModel(app) {
         LogUtils.dTag(TAG, "点击debug添加一行数据库，现在已经有 $currentCount 个数据库列了")
         val name = "第${currentCount + 1}个"
         val nickName = "小${currentCount + 1}"
-        val person = Person(null, name, nickName, 1, null, mDateFormatter.parse("1997-05-11"))
+        val person = Person(null, name, nickName, 1, null, mDateFormatter.parse("1997-05-11"), null)
         LuciusTowerDatabaseUtil.db.personDao().insertAll(person)
         LogUtils.dTag(TAG, "点击debug添加一行数据库，刚测试插入了一行$person")
     }

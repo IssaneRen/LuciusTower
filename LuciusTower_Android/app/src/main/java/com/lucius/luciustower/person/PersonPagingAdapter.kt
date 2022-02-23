@@ -13,6 +13,7 @@ import com.blankj.utilcode.util.LogUtils
 import com.intsig.roomdb.entity.Person
 import com.lucius.luciustower.R
 import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * @author Lucius Ren
@@ -31,6 +32,8 @@ class PersonPagingAdapter(
 
     private val mDateFormatter = SimpleDateFormat("yyyy-MM-dd")
 
+    private val mRandom = Random()
+
     override fun onBindViewHolder(holder: PersonViewHolder, position: Int) {
         getItem(position)?.let { item ->
             LogUtils.dTag(TAG, "convert position=$position, ")
@@ -44,6 +47,14 @@ class PersonPagingAdapter(
                     1 -> R.drawable.ic_male_symbol
                     2 -> R.drawable.ic_female_symbol
                     else -> R.drawable.ic_unknown_filled
+                }
+            )
+            // 测试用头像
+            holder.itemView.findViewById<AppCompatImageView>(R.id.aiv_avatar).setImageResource(
+                // todo Lucius 引入glide库后，这里直接使用glide读取avatar路径文件
+                when (mRandom.nextInt() % 2 == 0) {
+                    true -> R.drawable.img_commonui_avatar_sample_1
+                    else -> R.drawable.img_commonui_avatar_sample_2
                 }
             )
         } ?: run {

@@ -2,6 +2,7 @@ package com.intsig.commonbase.baseclass
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.intsig.commonbase.backfragment.handleBackPress
 
 /**
@@ -40,5 +41,14 @@ abstract class BaseLuciusActivity: AppCompatActivity() {
      */
     override fun onNavigateUp(): Boolean {
         return handleBackPress(this)
+    }
+
+    protected fun replaceFragment(containerId: Int, fragment: Fragment, addToBackStack: Boolean) {
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.replace(containerId, fragment)
+        if (addToBackStack) {
+            fragmentTransaction.addToBackStack(fragment.javaClass.simpleName)
+        }
+        fragmentTransaction.commitAllowingStateLoss()
     }
 }
